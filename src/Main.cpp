@@ -10,6 +10,7 @@ void meghtimer(int);
 void Naukatimer(int);
 void appletimer(int);
 int state;
+bool showRain = false;
 
 float axisshift = 1.0;
 void init(void){
@@ -307,7 +308,7 @@ void Draw(){
     Kukkut();
     // for (int yh = 520; yh >= -520; yh-=30) Par(yh+(rand() % (10 - 0 + 1)));
     // Par(520+(rand() % (10+ 1)));
-    Par(520);
+    if (showRain) Par(520);
     // drawSnow();
     glFlush();
     glutSwapBuffers();
@@ -315,6 +316,7 @@ void Draw(){
 }
 void key_inpt(int key, int x, int y) 
 {
+     printf("key_code =%d  \n",key);
      switch (key) {    
        case 27 : break;
        case 100 : clspeed -= 0.5f;    
@@ -325,10 +327,13 @@ void key_inpt(int key, int x, int y)
                 break;
        case 103: apspeed += 0.3f;     
                 break;
+       case 117: showRain = !showRain; // right alt
+                break;
     }
 }
 void Megh(){
-    glColor3f(200/256.0f,197/256.0f,205/256.0f);
+    if (showRain) glColor3f(200/256.0f,197/256.0f,205/256.0f);
+    else glColor3f(220/256.0f,200/256.0f,215/256.0f);
     int circle_attr[15][3] = {
         {45, 450, 30, },
         {45, 450, 30,},
@@ -346,6 +351,26 @@ void Megh(){
         {440, 435, 25,},
         {80, 450, 30, }};
     for (int i = 0; i<15; i++) { DrawCircle(meghposition+circle_attr[i][0], circle_attr[i][1], circle_attr[i][2], 200); }
+    if (showRain) {
+        int shift = -800;
+        int circle_attr1[15][3] = {
+        {shift+45, 450, 30, },
+        {shift+45, 450, 30,},
+        {shift+80, 465, 30, },
+        {shift+120, 450, 30,},
+        {shift+80, 450, 30, },
+        {shift+225, 430, 20,},
+        {shift+250, 440, 25,},
+        {shift+275, 430, 20,},
+        {shift+240, 418, 15,},
+        {shift+260, 417, 15,},
+        {shift+400, 450, 30,},
+        {shift+440, 470, 30,},
+        {shift+480, 450, 30,},
+        {shift+440, 435, 25,},
+        {80, 450, 30, }};
+    for (int i = 0; i<15; i++) { DrawCircle(meghposition+circle_attr1[i][0], circle_attr1[i][1], circle_attr1[i][2], 200); }
+    }
 }
 
 void meghtimer(int)
