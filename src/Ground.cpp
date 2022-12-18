@@ -1,7 +1,7 @@
 #include "fun.h"
 
 
-void Ground(){
+void Bhoomi(){
     glColor4f(0.17, 0.43, 0.17, 1.0);
     glBegin(GL_QUADS);
     glVertex2i(-960, 280);
